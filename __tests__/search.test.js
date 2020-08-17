@@ -20,3 +20,6 @@ test("verify that you get undefined when the acronym is not found.", () => {
 test("verify that you get undefined when the acronym is empty.", () => {
   expect(search("", testValid)).toBe(undefined);
 });
+test("verify that you get undefined when the acronym is a number.", () => {
+  expect(search(1, testValid)).toBe(undefined);
+});

@@ -1,5 +1,8 @@
 const search = (acronym, dataset) => {
-  if (typeof dataset !== "object" && dataset.length === 0) {
+  if (
+    typeof acronym !== "string" ||
+    (typeof dataset !== "object" && dataset.length === 0)
+  ) {
     return undefined;
   } else {
     return dataset.find(
