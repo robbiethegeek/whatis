@@ -6,6 +6,7 @@ const fetch = require("node-fetch");
 
 const app = express();
 const { search } = require("./search");
+let dataSet;
 
 const log = bunyan.createLogger({ name: "whatis" });
 if (!env.ACRONYMS_URL) {
@@ -13,7 +14,7 @@ if (!env.ACRONYMS_URL) {
   exit(1);
 }
 app.get("/", (req, res) => {
-  let dataSet;
+  
   const sendResponse = (input) => {
     const body = search(input, dataSet);
     if (body) {
