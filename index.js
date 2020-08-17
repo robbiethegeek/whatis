@@ -33,9 +33,7 @@ app.get("/", (req, res) => {
       }
     })();
   };
-  const acronym = req.query.acronym
-    ? req.query.acronym.toString().toUpperCase()
-    : undefined;
+  const acronym = req.query.acronym ? req.query.acronym.toString() : undefined;
   if (!acronym) {
     res.sendStatus(400);
   } else {
