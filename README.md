@@ -1,6 +1,6 @@
 # What Is
 
-## Environment variables: 
+## Environment variables:
 
     ACRONYMS_URL the url of the acronyms csv file [REQUIRED]
     PORT to set the port that the app will run on (default: 3000) [OPTIONAL]
