@@ -5,6 +5,8 @@ const { env, exit } = require("process");
 const fetch = require("node-fetch");
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const { search } = require("./search");
 const Logger = require("bunyan");
 let dataSet;
@@ -14,7 +16,7 @@ if (!env.ACRONYMS_URL) {
   log.fatal("No ACRONYMS_URL environment variable");
   exit(1);
 }
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
   const sendResponse = (input) => {
     const body = search(input, dataSet);
     if (body) {
@@ -39,9 +41,10 @@ app.get("/", (req, res) => {
       }
     })();
   };
-  const acronym = req.query.acronym ? req.query.acronym.toString() : undefined;
+  console.log(req.body);
+  const acronym = req.body.acronym ? req.body.acronym : undefined;
   if (!acronym) {
-    log.info("No acronym GET query parameter in request.");
+    log.info("No acronym key in POST request.");
     res.sendStatus(400);
   } else {
     if (!dataSet) {
