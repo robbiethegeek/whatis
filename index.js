@@ -20,7 +20,10 @@ app.post("/", (req, res) => {
   const sendResponse = (input) => {
     const body = search(input, dataSet);
     if (body) {
-      let returnText = `The acronym: ${input} is ${body.descrition}`;
+      let returnText = `The acronym: ${input} is ${body.definition}`;
+      if (body.context) {
+        returnText += `in the ${body.context}`;
+      }
       const returnBody = {
         blocks: [
           {
@@ -32,6 +35,15 @@ app.post("/", (req, res) => {
           },
         ],
       };
+      if (body.notes) {
+        returnBody.blocks.push({
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: body.notes,
+          },
+        });
+      }
       res.send(returnBody);
     } else {
       log.info("No acronym found matching: %s", input);
