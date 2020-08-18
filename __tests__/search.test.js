@@ -1,4 +1,4 @@
-const { search } = require("../search");
+const { search } = require("../app/search");
 const testAcronym = "stsi";
 const expectedResponse = {
   acronym: "STSI",
