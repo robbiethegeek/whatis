@@ -22,7 +22,7 @@ app.post("/", (req, res) => {
     if (body) {
       let returnText = `The acronym: ${input} is ${body.definition}`;
       if (body.context) {
-        returnText += `in the ${body.context}`;
+        returnText += `in the ${body.context} context.`;
       }
       const returnBody = {
         blocks: [
