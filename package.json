@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "repository": "github:robbiethegeek/whatis",
   "description": "This is a node application that returns acronym data based on a URL of a CSV file.",
-  "main": "app/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
     "start": "node ./app/index.js"
