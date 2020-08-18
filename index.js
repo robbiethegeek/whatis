@@ -19,22 +19,22 @@ if (!env.ACRONYMS_URL) {
 app.post("/", (req, res) => {
   const sendResponse = (input) => {
     const body = search(input, dataSet);
+    const returnBody = {
+      blocks: [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+          },
+        },
+      ],
+    };
     if (body) {
       let returnText = `The acronym: ${input} is ${body.definition}`;
       if (body.context) {
-        returnText += `in the ${body.context} context.`;
+        returnText += ` in the ${body.context} context.`;
       }
-      const returnBody = {
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: returnText,
-            },
-          },
-        ],
-      };
+      returnBody.blocks[0].text["text"] = returnText;
       if (body.notes) {
         returnBody.blocks.push({
           type: "section",
@@ -44,11 +44,11 @@ app.post("/", (req, res) => {
           },
         });
       }
-      res.send(returnBody);
     } else {
       log.info("No acronym found matching: %s", input);
-      res.sendStatus(404);
+      returnBody.blocks[0].text.text = `No acronym found matching: ${input}`;
     }
+    res.send(returnBody);
   };
   const loadDataAndSendResponse = () => {
     (async () => {
