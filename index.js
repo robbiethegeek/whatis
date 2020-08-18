@@ -42,9 +42,9 @@ app.post("/", (req, res) => {
     })();
   };
   console.log(req.body);
-  const acronym = req.body.acronym ? req.body.acronym : undefined;
+  const acronym = req.body.text ? req.body.text : undefined;
   if (!acronym) {
-    log.info("No acronym key in POST request.");
+    log.info("No text key in POST request.");
     res.sendStatus(400);
   } else {
     if (!dataSet) {
