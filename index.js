@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
     if (body) {
       res.send(body);
     } else {
+      log.info("No acronym found matching: %s", input);
       res.sendStatus(404);
     }
   };
