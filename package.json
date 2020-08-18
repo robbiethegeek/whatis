@@ -1,7 +1,8 @@
 {
   "name": "whatis",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "repository": "github:robbiethegeek/whatis",
+  "description": "This is a node application that returns acronym data based on a URL of a CSV file.",
   "main": "app/index.js",
   "scripts": {
     "test": "jest",
@@ -13,11 +14,12 @@
     "bunyan": "^1.8.14",
     "csvtojson": "^2.0.10"
   },
-  "devDependencies": {
+  "dependencues": {
     "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
     "jest": "^26.4.0",
-    "node-fetch": "^2.6.0",
-    "prettier": "2.0.5",
-    "request": "^2.88.2"
+    "prettier": "2.0.5"
   }
 }
