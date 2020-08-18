@@ -20,7 +20,19 @@ app.post("/", (req, res) => {
   const sendResponse = (input) => {
     const body = search(input, dataSet);
     if (body) {
-      res.send(body);
+      let returnText = `The acronym: ${input} is ${body.descrition}`;
+      const returnBody = {
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: returnText,
+            },
+          },
+        ],
+      };
+      res.send(returnBody);
     } else {
       log.info("No acronym found matching: %s", input);
       res.sendStatus(404);
@@ -41,7 +53,6 @@ app.post("/", (req, res) => {
       }
     })();
   };
-  console.log(req.body);
   const acronym = req.body.text ? req.body.text : undefined;
   if (!acronym) {
     log.info("No text key in POST request.");
