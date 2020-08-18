@@ -6,15 +6,15 @@ const fetch = require("node-fetch");
 
 const app = express();
 const { search } = require("./search");
+const Logger = require("bunyan");
 let dataSet;
 
 const log = bunyan.createLogger({ name: "whatis" });
 if (!env.ACRONYMS_URL) {
-  console.log("Please make sure there is a ACRONYMS_URL environment variable");
+  log.fatal("No ACRONYMS_URL environment variable");
   exit(1);
 }
 app.get("/", (req, res) => {
-  
   const sendResponse = (input) => {
     const body = search(input, dataSet);
     if (body) {
@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
         csv()
           .fromString(body)
           .then((jsonObj) => {
-            log.info(jsonObj);
+            log.info(JSON.stringify(jsonObj, "", 2));
             dataSet = jsonObj;
             sendResponse(acronym);
           });
@@ -40,6 +40,7 @@ app.get("/", (req, res) => {
   };
   const acronym = req.query.acronym ? req.query.acronym.toString() : undefined;
   if (!acronym) {
+    log.info("No acronym GET query parameter in request.");
     res.sendStatus(400);
   } else {
     if (!dataSet) {
