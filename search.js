@@ -1,11 +1,13 @@
 const search = (acronym, dataset) => {
   if (
     typeof acronym !== "string" ||
-    (typeof dataset !== "object" && dataset.length === 0)
+    !acronym ||
+    typeof dataset !== "object" ||
+    (typeof dataset === "object" && dataset.length === 0)
   ) {
     return undefined;
   } else {
-    return dataset.find(
+    return dataset.filter(
       (current) => current.acronym.toLowerCase() == acronym.toLowerCase()
     );
   }
