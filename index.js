@@ -64,7 +64,7 @@ app.post("/", (req, res) => {
       }
     })();
   };
-  const acronym = req.body.text ? req.body.text : undefined;
+  const acronym = req.body.text ? req.body.text.toUpperCase() : undefined;
   if (!acronym) {
     log.info("No text key in POST request.");
     res.sendStatus(400);
