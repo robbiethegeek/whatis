@@ -71,7 +71,6 @@ app.post("/", (req, res) => {
     log.info("No text key in POST request.");
     res.sendStatus(400);
   } else {
-    console.log(req.body);
     if (!req.body.token && req.body.token !== env.SECRET_TOKEN) {
       log.info("Secret token doesn't match!");
       const returnBody = {
