@@ -3,6 +3,7 @@ const csv = require("csvtojson");
 const express = require("express");
 const { env, exit } = require("process");
 const fetch = require("node-fetch");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
@@ -44,7 +45,8 @@ app.post("/", (req, res) => {
     } else {
       log.info("No acronym found matching: %s", input);
       const noAcronym = Object.assign({}, returnBody);
-      noAcronym.text.text = `No acronym found matching: ${input}`;
+      const url = path.parse(env.ACRONYMS_URL).dir.split("/");
+      noAcronym.text.text = `No acronym found matching: ${input}. To add your acronym please go to ${url[0]}//www.github.com/${url[3]}/${url[4]}`;
       returnObject.blocks.push(noAcronym);
     }
     res.send(returnObject);
