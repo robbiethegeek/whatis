@@ -71,10 +71,23 @@ app.post("/", (req, res) => {
     log.info("No text key in POST request.");
     res.sendStatus(400);
   } else {
-    if (!dataSet) {
-      loadDataAndSendResponse();
+    console.log(req.body);
+    if (!req.body.token && req.body.token !== env.SECRET_TOKEN) {
+      log.info("Secret token doesn't match!");
+      const returnBody = {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "Secret token doesn't match!",
+        },
+      };
+      res.send(returnBody);
     } else {
-      sendResponse(acronym);
+      if (!dataSet) {
+        loadDataAndSendResponse();
+      } else {
+        sendResponse(acronym);
+      }
     }
   }
 });
