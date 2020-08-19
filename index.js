@@ -31,7 +31,7 @@ app.post("/", (req, res) => {
     if (body.length) {
       for (current of body) {
         let returnText = `The acronym: ${input} is ${current.definition}`;
-        const currentAcronym = Object.assign({}, returnBody);
+        const currentAcronym = JSON.parse(JSON.stringify(returnBody));
         if (current.context) {
           returnText += ` in the ${current.context} context.`;
         }
