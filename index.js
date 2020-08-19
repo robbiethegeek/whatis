@@ -20,35 +20,34 @@ app.post("/", (req, res) => {
   const sendResponse = (input) => {
     const body = search(input, dataSet);
     const returnBody = {
-      blocks: [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-          },
-        },
-      ],
+      type: "section",
+      text: {
+        type: "mrkdwn",
+      },
     };
-    if (body) {
-      let returnText = `The acronym: ${input} is ${body.definition}`;
-      if (body.context) {
-        returnText += ` in the ${body.context} context.`;
-      }
-      returnBody.blocks[0].text["text"] = returnText;
-      if (body.notes) {
-        returnBody.blocks.push({
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: body.notes,
-          },
-        });
+    const returnObject = {
+      blocks: [],
+    };
+    if (body.length) {
+      for (current of body) {
+        let returnText = `The acronym: ${input} is ${current.definition}`;
+        const currentAcronym = Object.assign({}, returnBody);
+        if (current.context) {
+          returnText += ` in the ${current.context} context.`;
+        }
+        currentAcronym.text["text"] = returnText;
+        if (current.notes) {
+          currentAcronym.text["text"] += ` ${current.notes}`;
+        }
+        returnObject.blocks.push(currentAcronym);
       }
     } else {
       log.info("No acronym found matching: %s", input);
-      returnBody.blocks[0].text.text = `No acronym found matching: ${input}`;
+      const noAcronym = Object.assign({}, returnBody);
+      noAcronym.text.text = `No acronym found matching: ${input}`;
+      returnObject.blocks.push(noAcronym);
     }
-    res.send(returnBody);
+    res.send(returnObject);
   };
   const loadDataAndSendResponse = () => {
     (async () => {
