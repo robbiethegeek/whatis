@@ -1,6 +1,6 @@
 {
   "name": "whatis",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "repository": "github:robbiethegeek/whatis",
   "description": "This is a node application that returns acronym data based on a URL of a CSV file.",
   "main": "index.js",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "jest": "^26.6.3",
-    "prettier": "2.0.5"
+    "prettier": "2.0.5",
+    "json-schema": ">=0.4.0"
   }
 }
