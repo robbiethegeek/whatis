@@ -14,7 +14,7 @@
   "dependencies": {
     "bunyan": "^1.8.14",
     "csvtojson": "^2.0.10",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "node-fetch": "^2.6.7"
   },
   "devDependencies": {
